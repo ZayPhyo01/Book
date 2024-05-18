@@ -9,34 +9,48 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ui.DetailActivity
 import com.ui.adapter.BookAdapter
+import com.ui.book.fragments.BookListFragment
 import com.ui.viewmodel.BookViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    val bookViewModel: BookViewModel by viewModel()
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val bookRecyclerView = findViewById<RecyclerView>(R.id.rvBookList)
-        val adapter: BookAdapter = BookAdapter()
-        bookRecyclerView.adapter = adapter
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_book_list -> {
+                    replaceFragment(BookListFragment.newInstance())
+                }
 
-        bookViewModel.bookListLiveData.observe(this) {
-            adapter.updateList(it)
+                R.id.nav_fav_book_list -> {
+                    replaceFragment(BookListFragment.newInstance())
+                }
+
+                else -> {
+                    replaceFragment(BookListFragment.newInstance())
+                }
+            }
+            true
         }
+        replaceFragment(BookListFragment.newInstance())
+    }
 
-        val btn = findViewById<Button>(R.id.btnClick)
-        btn.setOnClickListener {
-            val intent = Intent(this , DetailActivity::class.java)
-            startActivity(intent)
-        }
-
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment, fragment.javaClass.name)
+            .commit()
     }
 
     override fun onStart() {
@@ -50,17 +64,17 @@ class MainActivity : AppCompatActivity() {
     //
     override fun onPause() {
         super.onPause()
-        Toast.makeText(this , "onPause" , Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show()
     }
 
     override fun onStop() {
         super.onStop()
-        Toast.makeText(this , "onStop" , Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Toast.makeText(this , "onDestroy" , Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show()
     }
 }
 
