@@ -9,24 +9,32 @@ import com.domain.model.BookModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+//Loading -> Loading , Success -> list display
 class BookViewModel constructor(
     private val bookRepository: BookRepository
 ) : ViewModel() {
 
-    private val _bookListLiveData: MutableLiveData<List<BookModel>> = MutableLiveData()
-    val bookListLiveData: LiveData<List<BookModel>> = _bookListLiveData
+    private val _bookListLiveData: MutableLiveData<BookUiState> = MutableLiveData()
+    val bookListLiveData: LiveData<BookUiState> = _bookListLiveData
 
     init {
         viewModelScope.launch {
-            delay(5000)
             fetchBookList()
         }
 
     }
 
     private suspend fun fetchBookList() {
+        //emit loading
+        _bookListLiveData.value = BookUiState.Loading
+        delay(5000)
         val bookModels: List<BookModel> = bookRepository.getBookList()
-        _bookListLiveData.value = bookModels
+        _bookListLiveData.value = BookUiState.Success(bookModels)
     }
+}
 
+sealed class BookUiState {
+    object Loading : BookUiState()
+
+    data class Success(val books: List<BookModel>) : BookUiState()
 }
