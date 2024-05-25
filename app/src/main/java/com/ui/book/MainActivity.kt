@@ -51,6 +51,15 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
                     adapter.updateList(it.books)
                 }
+
+                BookUiState.EmptyBook -> {
+                    //showEmptyView()
+                }
+
+                BookUiState.NavigateToDetailScreen -> {
+                    val intent = Intent(this, DetailActivity::class.java)
+                    startActivity(intent)
+                }
             }
 
         }
@@ -60,8 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         val btn = activityMainBinding.btnClick
         btn.setOnClickListener {
-            val intent = Intent(this, DetailActivity::class.java)
-            startActivity(intent)
+            bookViewModel.post()
         }
 
     }

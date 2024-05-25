@@ -25,6 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>
 
+    <com.google.android.material.slider.RangeSlider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TrifectaPlusSliderStyle"
+/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBookList"

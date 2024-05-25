@@ -6,4 +6,20 @@
     </style>
 
     <style name="Theme.Book" parent="Base.Theme.Book" />
+
+    <style name="TrifectaPlusSliderLabelStyle" parent="Widget.MaterialComponents.Tooltip">
+        <item name="backgroundTint">#fff</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
+    <style name="TrifectaPlusSliderStyle" parent="Widget.Material3.Slider">
+        <item name="labelStyle">
+            @style/TrifectaPlusSliderLabelStyle
+        </item>
+        <item name="trackColorActive">#E06855</item>
+        <item name="trackTint">#2E353D</item>
+        <item name="trackThickness">22dp</item>
+        <item name="labelBehavior">visible</item>
+        <item name="thumbTint">#E06855</item>
+    </style>
 </resources>

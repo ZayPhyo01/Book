@@ -4,4 +4,19 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
+    <style name="TrifectaPlusSliderLabelStyle" parent="Widget.MaterialComponents.Tooltip">
+        <item name="backgroundTint">#fff</item>
+    </style>
+
+    <style name="TrifectaPlusSliderStyle" parent="Widget.MaterialComponents.Slider">
+        <item name="labelStyle">
+            @style/TrifectaPlusSliderLabelStyle
+        </item>
+        <item name="colorPrimary">#E06855</item>
+        <item name="trackTint">#2E353D</item>
+        <item name="trackThickness">12dp</item>
+        <item name="labelBehavior">visible</item>
+        <item name="thumbTint">#E06855</item>
+    </style>
 </resources>

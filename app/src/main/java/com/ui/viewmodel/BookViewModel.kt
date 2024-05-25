@@ -31,10 +31,25 @@ class BookViewModel constructor(
         val bookModels: List<BookModel> = bookRepository.getBookList()
         _bookListLiveData.value = BookUiState.Success(bookModels)
     }
+
+    fun post() {
+        viewModelScope.launch {
+            delay(2000)
+            _bookListLiveData.value = BookUiState.NavigateToDetailScreen
+        }
+
+    }
 }
 
+// Loading or Success -> Or -> seal
 sealed class BookUiState {
     object Loading : BookUiState()
 
-    data class Success(val books: List<BookModel>) : BookUiState()
+    data class Success(
+        val books: List<BookModel>
+    ) : BookUiState()
+
+    object EmptyBook : BookUiState()
+
+    object NavigateToDetailScreen : BookUiState()
 }
