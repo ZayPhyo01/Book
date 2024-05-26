@@ -28,8 +28,12 @@ class BookViewModel constructor(
         //emit loading
         _bookListLiveData.value = BookUiState.Loading
         delay(5000)
-        val bookModels: List<BookModel> = bookRepository.getBookList()
-        _bookListLiveData.value = BookUiState.Success(bookModels)
+        val bookList = bookRepository.getBookList().getOrNull()
+        if (bookList == null) {
+            // fail -> showErrorMessage
+        } else {
+            _bookListLiveData.value = BookUiState.Success(bookList)
+        }
     }
 
     fun post() {
