@@ -11,10 +11,11 @@ import io.ktor.client.request.get
 class BookRemoteDataSource(private val httpClient: HttpClient) {
 
     suspend fun getBookList(): Result<List<BookModel>> {
-        return httpClient.get("http://54.179.102.152/api/user/books_simple")
-            .handle<BookResponse>().map {
+        return handle<BookResponse> { httpClient.get("http://54.179.102.152/api/user/books_simple") }
+            .map {
                 it.toBookModel()
             }
+
 
     }
 }

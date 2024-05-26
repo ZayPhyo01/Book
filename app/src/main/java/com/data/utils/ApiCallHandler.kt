@@ -11,20 +11,23 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 
-suspend inline fun <reified T> HttpResponse.handle(): Result<T> {
+suspend inline fun <reified T> handle(
+    apiCall : () -> HttpResponse
+): Result<T> {
     return try {
-        when (this.status) {
+        val httpResponse = apiCall()
+        when (httpResponse.status) {
             //200
             HttpStatusCode.OK -> {
                 //Success?
-                val response: T = this.body()
+                val response: T = httpResponse.body()
                 if (response != null) {
                     return Result.success(response)
                 }
                 //Fail or Success?
                 return Result.failure(
                     ApiException(
-                        code = this.status.value,
+                        code = httpResponse.status.value,
                         message = "Something went wrong"
                     )
                 )
@@ -33,14 +36,14 @@ suspend inline fun <reified T> HttpResponse.handle(): Result<T> {
             //404
             HttpStatusCode.NotFound -> Result.failure(
                 ApiException(
-                    code = this.status.value,
+                    code = httpResponse.status.value,
                     message = "NEW_USER"
                 )
             )
 
             else -> Result.failure(
                 ApiException(
-                    code = this.status.value,
+                    code = httpResponse.status.value,
                     message = "Something went wrong"
                 )
             )

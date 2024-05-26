@@ -25,16 +25,17 @@ class AuthRemoteDataSource(private val httpClient: HttpClient) {
     // Failed -> Failiure -> Exception -> ViewModel
     // only one
     suspend fun login(username: String, password: String): Result<String> {
-        return httpClient
-            .post("http://54.179.102.152/api/auth/login") {
-                contentType(ContentType.Application.Json)
-                setBody(
-                    LoginRequest(
-                        username = username,
-                        password = password
+        return handle {
+            httpClient
+                .post("http://54.179.102.152/api/auth/login") {
+                    contentType(ContentType.Application.Json)
+                    setBody(
+                        LoginRequest(
+                            username = username,
+                            password = password
+                        )
                     )
-                )
-            }.handle<String>()
-
+                }
+        }
     }
 }
