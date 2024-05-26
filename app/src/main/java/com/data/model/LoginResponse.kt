@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class LoginResponse(
     val data: User?
-) {
+){
 
     @Serializable
     data class User(

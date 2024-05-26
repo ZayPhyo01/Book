@@ -59,6 +59,10 @@ dependencies {
     implementation("io.ktor:ktor-client-android:2.3.11")
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
     implementation("io.insert-koin:koin-core:3.5.6")
     implementation("io.insert-koin:koin-android:3.5.6")
+    implementation("io.ktor:ktor-client-okhttp:2.3.11")
+
 }
