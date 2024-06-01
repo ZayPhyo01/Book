@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ui.DetailActivity
 import com.ui.adapter.BookAdapter
 import com.ui.book.databinding.ActivityMainBinding
+import com.ui.viewmodel.BookUiEvent
 import com.ui.viewmodel.BookUiState
 import com.ui.viewmodel.BookViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,30 +37,40 @@ class MainActivity : AppCompatActivity() {
         tvResponse = activityMainBinding.tvResponse
 
         bookViewModel.bookListLiveData.observe(this) {
-            when(it){
+            when (it) {
                 BookUiState.Loading -> {
                     activityMainBinding.pgLoading.visibility = View.VISIBLE
                 }
+
                 is BookUiState.Success -> {
                     activityMainBinding.pgLoading.visibility = View.GONE
                     tvResponse?.text = "Success"
                     Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
                     adapter.updateList(it.books)
+
                 }
 
                 BookUiState.EmptyBook -> {
                     //showEmptyView()
                 }
 
-                BookUiState.NavigateToDetailScreen -> {
-                    val intent = Intent(this, DetailActivity::class.java)
-                    startActivity(intent)
-                }
             }
 
         }
 
+        bookViewModel.uiEvent
+            .observe(this){
+                when(it) {
+                    BookUiEvent.NavigateToDetailScreen -> {
+                        val intent = Intent(this, DetailActivity::class.java)
+                        startActivity(intent)
+                    }
 
+                    is BookUiEvent.Error -> {
+
+                    }
+                }
+            }
 
 
         val btn = activityMainBinding.btnClick

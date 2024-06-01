@@ -7,6 +7,7 @@ import org.koin.dsl.module
 val bookRepositoryModule = module {
     single {
         BookRepository(
+            get(),
             get()
         )
     }

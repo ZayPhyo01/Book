@@ -39,6 +39,25 @@ data class BookResponse(
         val description: String?,
         @SerialName("book_cover")
         val bookCover: String,
+        val author: Author?,
+        val category: Category?,
+        val rating: Double,
+        val price: Double
+    )
+
+    @Serializable
+    data class Category(
+        val id: String,
+        @SerialName("category_name")
+        val categoryName: String
+    )
+
+    @Serializable
+    data class Author(
+        val id: String,
+        val name: String,
+        val description: String
+
     )
 }
 

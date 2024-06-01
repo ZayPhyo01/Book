@@ -10,8 +10,7 @@ import com.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 sealed class LoginUiState {
-
-    object Idle : LoginUiState()
+    data object Idle : LoginUiState()
     data object Loading : LoginUiState()
 
 
