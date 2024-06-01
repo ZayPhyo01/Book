@@ -11,7 +11,7 @@ class FakeBookRemoteDataSourceImpl : BookRemoteDataSource {
                     id = "12",
                     name = "Horror",
                     description = "description 123",
-                    bookCover = ""
+                    bookCover = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcjNfD2cn-8h6oiBJGEVvhrCynVhrb6ulu1w&s"
                 )
             )
         )
