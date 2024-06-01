@@ -1,5 +1,6 @@
 package com.ui.book
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -36,10 +37,11 @@ class MainActivity : AppCompatActivity() {
         tvResponse = activityMainBinding.tvResponse
 
         bookViewModel.bookListLiveData.observe(this) {
-            when(it){
+            when (it) {
                 BookUiState.Loading -> {
                     activityMainBinding.pgLoading.visibility = View.VISIBLE
                 }
+
                 is BookUiState.Success -> {
                     activityMainBinding.pgLoading.visibility = View.GONE
                     tvResponse?.text = "Success"
@@ -58,8 +60,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
-
 
 
         val btn = activityMainBinding.btnClick
@@ -93,6 +93,16 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
+    }
+
+    companion object {
+        fun newInstance(ctx: Context): Intent {
+            return Intent(
+                ctx, MainActivity::class.java
+            ).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+        }
     }
 }
 

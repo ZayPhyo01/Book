@@ -65,4 +65,6 @@ dependencies {
     implementation("io.insert-koin:koin-android:3.5.6")
     implementation("io.ktor:ktor-client-okhttp:2.3.11")
 
+    implementation("com.tencent:mmkv:1.3.5")
+
 }

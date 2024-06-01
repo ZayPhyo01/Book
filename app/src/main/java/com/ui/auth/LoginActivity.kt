@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.appcompat.app.AppCompatActivity
+import com.data.datasource.AuthLocalDataSourceImpl
 import com.ui.book.MainActivity
 import com.ui.book.databinding.ActivityLoginBinding
 import com.ui.viewmodel.LoginUiState
@@ -36,7 +37,6 @@ class LoginActivity : AppCompatActivity() {
         observerUiState()
         observeViewModelEvent()
 
-
     }
 
     private fun observeViewModelEvent() {
@@ -58,6 +58,11 @@ class LoginActivity : AppCompatActivity() {
                         .show()
                 }
 
+                LoginViewModelEvent.UserAlreadyLoggedIn -> {
+                    MainActivity.newInstance(this).also { intent ->
+                        startActivity(intent)
+                    }
+                }
             }
         }
     }

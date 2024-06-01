@@ -24,6 +24,8 @@ sealed class LoginViewModelEvent {
     data object NewUser : LoginViewModelEvent()
 
     data class Error(val error: String) : LoginViewModelEvent()
+
+    data object UserAlreadyLoggedIn : LoginViewModelEvent()
 }
 
 class LoginViewModel(
@@ -37,6 +39,12 @@ class LoginViewModel(
     // one time event
     private val _uiEvent: SingleLiveEvent<LoginViewModelEvent> = SingleLiveEvent()
     val uiEvent: LiveData<LoginViewModelEvent> = _uiEvent
+
+    init {
+        if (authRepository.isUserLoggedIn()) {
+            _uiEvent.value = LoginViewModelEvent.UserAlreadyLoggedIn
+        }
+    }
 
     fun login(userName: String, password: String) {
         //Show loading -> State
@@ -72,6 +80,9 @@ class LoginViewModel(
 
                     }
                 )
+
+
+
         }
 
     }

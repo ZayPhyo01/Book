@@ -15,7 +15,8 @@ val bookRepositoryImplModule = module {
 
     single {
         AuthRepositoryImpl(
-            get()
+           authRemoteDataSource = get(),
+           authLocalDataSource = get()
         ) as AuthRepository
     }
 }

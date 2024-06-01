@@ -1,5 +1,6 @@
 package com.data.datasource
 
+import com.data.model.LoginResponse
 import com.data.model.requests.LoginRequest
 import com.data.utils.handle
 import io.ktor.client.HttpClient
@@ -18,7 +19,7 @@ class AuthRemoteDataSourceImpl(private val httpClient: HttpClient) : AuthRemoteD
     // only one
     override suspend fun login(username: String, password: String): Result<String> {
 
-        return handle {
+       return handle<LoginResponse> {
             httpClient
                 .post("http://54.179.102.152/api/auth/login") {
                     contentType(ContentType.Application.Json)
@@ -29,6 +30,8 @@ class AuthRemoteDataSourceImpl(private val httpClient: HttpClient) : AuthRemoteD
                         )
                     )
                 }
-        }
+        }.map {
+           it.data!!.accessToken
+       }
     }
 }
