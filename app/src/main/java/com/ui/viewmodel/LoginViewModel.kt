@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.data.exceptions.ApiException
 import com.data.repository.AuthRepository
+import com.data.repository.AuthRepositoryImpl
 import com.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 

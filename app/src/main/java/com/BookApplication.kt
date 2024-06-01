@@ -1,8 +1,8 @@
 package com
 
 import android.app.Application
-import com.di.bookRemoteDataSourceModule
-import com.di.bookRepositoryModule
+import com.di.bookRemoteDataSourceImplModule
+import com.di.bookRepositoryImplModule
 import com.di.bookViewModelModule
 import com.di.networkModule
 import org.koin.android.ext.koin.androidContext
@@ -14,8 +14,8 @@ class BookApplication : Application() {
         startKoin {
             modules(
                 bookViewModelModule,
-                bookRepositoryModule,
-                bookRemoteDataSourceModule,
+                bookRepositoryImplModule,
+                bookRemoteDataSourceImplModule,
                 networkModule
             )
             androidContext(this@BookApplication)

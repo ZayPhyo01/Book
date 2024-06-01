@@ -1,18 +1,19 @@
 package com.di
 
 import com.data.datasource.AuthRemoteDataSource
+import com.data.datasource.AuthRemoteDataSourceImpl
 import com.data.datasource.BookRemoteDataSource
+import com.data.datasource.BookRemoteDataSourceImpl
+import com.data.datasource.FakeBookRemoteDataSourceImpl
 import org.koin.dsl.module
 
-val bookRemoteDataSourceModule = module {
+val bookRemoteDataSourceImplModule = module {
     single {
-        BookRemoteDataSource(
-            get()
-        )
+        FakeBookRemoteDataSourceImpl() as BookRemoteDataSource
     }
     single {
-        AuthRemoteDataSource(
+        AuthRemoteDataSourceImpl(
             get()
-        )
+        ) as AuthRemoteDataSource
     }
 }

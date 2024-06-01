@@ -1,19 +1,21 @@
 package com.di
 
 import com.data.repository.AuthRepository
+import com.data.repository.AuthRepositoryImpl
 import com.data.repository.BookRepository
+import com.data.repository.BookRepositoryImpl
 import org.koin.dsl.module
 
-val bookRepositoryModule = module {
+val bookRepositoryImplModule = module {
     single {
-        BookRepository(
+        BookRepositoryImpl(
             get()
-        )
+        ) as BookRepository
     }
 
     single {
-        AuthRepository(
+        AuthRepositoryImpl(
             get()
-        )
+        ) as AuthRepository
     }
 }
