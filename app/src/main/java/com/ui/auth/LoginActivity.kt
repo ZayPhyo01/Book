@@ -1,10 +1,15 @@
 package com.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.appcompat.app.AppCompatActivity
+import com.ui.book.MainActivity
 import com.ui.book.databinding.ActivityLoginBinding
+import com.ui.viewmodel.LoginUiState
 import com.ui.viewmodel.LoginViewModel
+import com.ui.viewmodel.LoginViewModelEvent
 
 
 class LoginActivity : AppCompatActivity() {
@@ -25,5 +30,48 @@ class LoginActivity : AppCompatActivity() {
                 password = password
             )
         }
+
+
+
+        observerUiState()
+        observeViewModelEvent()
+
+
     }
+
+    private fun observeViewModelEvent() {
+        viewModel.uiEvent.observe(this) {
+            when (it) {
+                is LoginViewModelEvent.Error -> {
+                    Toast.makeText(this, it.error, Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+
+                LoginViewModelEvent.LoginSuccess -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+
+                LoginViewModelEvent.NewUser -> {
+                    Toast.makeText(this, "new user", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }
+        }
+    }
+
+    private fun observerUiState() {
+        viewModel.uiState.observe(this) {
+            when (it) {
+                LoginUiState.Loading -> {}
+
+                LoginUiState.Idle -> {
+
+                }
+            }
+        }
+    }
+
 }

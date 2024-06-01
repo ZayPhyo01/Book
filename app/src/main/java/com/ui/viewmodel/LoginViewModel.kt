@@ -6,21 +6,36 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.data.exceptions.ApiException
 import com.data.repository.AuthRepository
+import com.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 sealed class LoginUiState {
+
+    object Idle : LoginUiState()
     data object Loading : LoginUiState()
-    data class Error(val error: String) : LoginUiState()
-    data object LoginSuccess : LoginUiState()
-    data object NewUser : LoginUiState()
+
+
+}
+
+sealed class LoginViewModelEvent {
+    data object LoginSuccess : LoginViewModelEvent()
+
+    data object NewUser : LoginViewModelEvent()
+
+    data class Error(val error: String) : LoginViewModelEvent()
 }
 
 class LoginViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
+    // persist ui state
     private val _uiState: MutableLiveData<LoginUiState> = MutableLiveData()
     val uiState: LiveData<LoginUiState> = _uiState
+
+    // one time event
+    private val _uiEvent: SingleLiveEvent<LoginViewModelEvent> = SingleLiveEvent()
+    val uiEvent: LiveData<LoginViewModelEvent> = _uiEvent
 
     fun login(userName: String, password: String) {
         //Show loading -> State
@@ -36,7 +51,7 @@ class LoginViewModel(
                 )
                 .fold(
                     onSuccess = {
-                        _uiState.value = LoginUiState.LoginSuccess
+                        _uiEvent.value = LoginViewModelEvent.LoginSuccess
                     },
 
                     onFailure = { error ->
@@ -47,8 +62,10 @@ class LoginViewModel(
 
                             else -> {
                                 //Exception
-                                _uiState.value =
-                                    LoginUiState.Error(error.message ?: "Something went wrong")
+                                _uiEvent.value =
+                                    LoginViewModelEvent.Error(
+                                        error.message ?: "Something went wrong"
+                                    )
                             }
                         }
 
@@ -58,14 +75,18 @@ class LoginViewModel(
 
     }
 
+    fun onMessageShown() {
+        _uiState.value = LoginUiState.Idle
+    }
+
     private fun handleApiException(apiException: ApiException) {
         when (apiException.code) {
             404 -> {
-                _uiState.value = LoginUiState.NewUser
+                _uiEvent.value = LoginViewModelEvent.NewUser
             }
 
             else -> {
-                _uiState.value = LoginUiState
+                _uiEvent.value = LoginViewModelEvent
                     .Error(apiException.message ?: "Something went wrong")
             }
         }
