@@ -1,24 +1,21 @@
 package com.ui.book
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.Observer
+import com.data.service.GlobalEventManager
+import com.data.service.GlobalEvents
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.ui.DetailActivity
-import com.ui.adapter.BookAdapter
+import com.ui.BaseActivity
+import com.ui.auth.LoginActivity
 import com.ui.book.fragments.BookListFragment
-import com.ui.viewmodel.BookViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -44,6 +41,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
         replaceFragment(BookListFragment.newInstance())
+
+
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -75,6 +74,16 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        fun newInstance(ctx: Context): Intent {
+            return Intent(
+                ctx, HomeActivity::class.java
+            ).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+        }
     }
 }
 

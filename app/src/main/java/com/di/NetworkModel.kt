@@ -7,6 +7,8 @@ import org.koin.dsl.module
 
 val networkModule = module {
     single {
-        KtorUtils().createKtor()
+        KtorUtils().createKtor(
+            appContext = get()
+        )
     }
 }
