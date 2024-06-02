@@ -8,4 +8,9 @@ class AuthLocalDataSourceImpl : AuthLocalDataSource {
         tokenService.token = token
     }
 
+    override fun getAccessToken(): String? = tokenService.token
+
+    override fun removeAccessToken() {
+        tokenService.token = null
+    }
 }

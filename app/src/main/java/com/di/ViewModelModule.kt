@@ -7,7 +7,10 @@ import org.koin.dsl.module
 
 val bookViewModelModule = module {
     viewModel {
-        BookViewModel(get())
+        BookViewModel(
+            bookRepository = get(),
+            authRepository = get()
+        )
     }
     viewModel {
         LoginViewModel(

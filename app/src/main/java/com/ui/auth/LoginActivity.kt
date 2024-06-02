@@ -1,5 +1,6 @@
 package com.ui.auth
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -76,6 +77,14 @@ class LoginActivity : AppCompatActivity() {
 
                 }
             }
+        }
+    }
+
+    companion object {
+        fun newInstance(ctx: Context): Intent = Intent(
+            ctx, LoginActivity::class.java
+        ).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
     }
 

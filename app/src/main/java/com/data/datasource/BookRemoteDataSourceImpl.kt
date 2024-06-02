@@ -9,8 +9,12 @@ import io.ktor.client.request.get
 
 class BookRemoteDataSourceImpl(private val httpClient: HttpClient) : BookRemoteDataSource {
     override suspend fun getBookList(): Result<List<BookModel>> {
-        TODO("Not yet implemented")
+        return handle<BookResponse> { httpClient.get("http://54.179.102.152/api/user/books_simple") }
+            .map {
+                it.toBookModel()
+            }
     }
+
 
 
 }

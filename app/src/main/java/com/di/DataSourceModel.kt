@@ -11,7 +11,9 @@ import org.koin.dsl.module
 
 val bookRemoteDataSourceImplModule = module {
     single {
-        FakeBookRemoteDataSourceImpl() as BookRemoteDataSource
+        BookRemoteDataSourceImpl(
+            httpClient = get()
+        ) as BookRemoteDataSource
     }
     single {
         AuthRemoteDataSourceImpl(

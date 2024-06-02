@@ -24,4 +24,7 @@ class AuthRepositoryImpl constructor(
     }
 
     override fun isUserLoggedIn() = authLocalDataSource.isUserLoggedIn()
+    override fun removeAccessToken() {
+        authLocalDataSource.removeAccessToken()
+    }
 }

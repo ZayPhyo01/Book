@@ -5,4 +5,6 @@ interface AuthRepository {
     suspend fun login(username: String, password: String): Result<Unit>
 
     fun isUserLoggedIn(): Boolean
+
+    fun removeAccessToken()
 }

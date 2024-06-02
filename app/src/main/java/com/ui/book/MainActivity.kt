@@ -11,12 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ui.DetailActivity
 import com.ui.adapter.BookAdapter
+import com.ui.auth.LoginActivity
+import com.ui.base.BaseActivity
 import com.ui.book.databinding.ActivityMainBinding
+import com.ui.viewmodel.BookUiEvent
 import com.ui.viewmodel.BookUiState
 import com.ui.viewmodel.BookViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     val bookViewModel: BookViewModel by viewModel()
     var bookRecyclerView: RecyclerView? = null
@@ -60,6 +63,17 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        bookViewModel.bookUiEvent
+            .observe(this) {
+                when (it) {
+                    is BookUiEvent.Error -> Toast.makeText(
+                        this@MainActivity,
+                        it.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
 
 
         val btn = activityMainBinding.btnClick
