@@ -19,7 +19,6 @@ fun provideRoomDatabase(context: Context): AppDatabase {
         context,
         AppDatabase::class.java, "database-name"
     )
-        .fallbackToDestructiveMigration()
         .build()
     return database
 }

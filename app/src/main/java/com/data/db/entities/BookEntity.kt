@@ -21,5 +21,8 @@ data class BookEntity(
     @Embedded(prefix = "category_")
     val category: BookResponse.Category?,
     val rating: Double,
-    val price: Double
+    val price: Double,
+    val price2: Double? = 0.0,
+    @ColumnInfo(name = "price_net")
+    val price4: Double? = 0.0
 )

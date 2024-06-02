@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "732eb3900757d30724271602dafcf8b2",
+    "entities": [
+      {
+        "tableName": "m_books",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `bookCover` TEXT NOT NULL, `rating` REAL NOT NULL, `price` REAL NOT NULL, `price2` REAL, `price_final` REAL, `grand_total` REAL, `auth_id` TEXT, `auth_name` TEXT, `auth_description` TEXT, `category_id` TEXT, `category_categoryName` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bookCover",
+            "columnName": "bookCover",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price2",
+            "columnName": "price2",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "price4",
+            "columnName": "price_final",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "price5",
+            "columnName": "grand_total",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "author.id",
+            "columnName": "auth_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "author.name",
+            "columnName": "auth_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "author.description",
+            "columnName": "auth_description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "category.id",
+            "columnName": "category_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "category.categoryName",
+            "columnName": "category_categoryName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '732eb3900757d30724271602dafcf8b2')"
+    ]
+  }
+}
