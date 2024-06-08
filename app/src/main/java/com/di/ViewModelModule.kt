@@ -1,5 +1,6 @@
 package com.di
 
+import com.ui.viewmodel.AccountViewModel
 import com.ui.viewmodel.BookViewModel
 import com.ui.viewmodel.LoginViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,6 +16,11 @@ val bookViewModelModule = module {
     viewModel {
         LoginViewModel(
             get()
+        )
+    }
+    viewModel {
+        AccountViewModel(
+            authRepository = get()
         )
     }
 }

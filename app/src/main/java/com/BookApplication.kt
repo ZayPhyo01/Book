@@ -5,6 +5,7 @@ import com.di.bookLocalDataSourceImplModule
 import com.di.bookRemoteDataSourceImplModule
 import com.di.bookRepositoryImplModule
 import com.di.bookViewModelModule
+import com.di.dbModule
 import com.di.networkModule
 import com.tencent.mmkv.MMKV
 import org.koin.android.ext.koin.androidContext
@@ -16,6 +17,7 @@ class BookApplication : Application() {
         MMKV.initialize(this)
         startKoin {
             modules(
+                dbModule,
                 bookViewModelModule,
                 bookRepositoryImplModule,
                 bookRemoteDataSourceImplModule,

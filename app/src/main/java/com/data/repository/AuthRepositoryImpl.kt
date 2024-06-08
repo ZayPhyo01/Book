@@ -1,7 +1,9 @@
 package com.data.repository
 
+import androidx.lifecycle.LiveData
 import com.data.datasource.AuthLocalDataSource
 import com.data.datasource.AuthRemoteDataSource
+import com.domain.model.UserModel
 
 class AuthRepositoryImpl constructor(
     private val authRemoteDataSource: AuthRemoteDataSource,
@@ -17,14 +19,30 @@ class AuthRepositoryImpl constructor(
             .map {
                 //Save to SharedPref
                 authLocalDataSource.saveAccessToken(
-                    token = it
+                    token = it.accessToken
                 )
-                //Log.d("ACCESS_TOKEN", authLocalDataSource.isUserLoggedIn().toString())
+                //SaveUserInfo
+                authLocalDataSource.saveUserInfo(
+                    user = UserModel(
+                        userName = it.userName ?: "",
+                        email = it.email ?: "",
+                        phoneNumber = it.phoneNumber ?: ""
+                    )
+                )
+
             }
     }
 
     override fun isUserLoggedIn() = authLocalDataSource.isUserLoggedIn()
     override fun removeAccessToken() {
         authLocalDataSource.removeAccessToken()
+    }
+
+    override fun getUser(): LiveData<UserModel> {
+        return authLocalDataSource.getUserInfo()
+    }
+
+    override suspend fun getUserOnce(): UserModel? {
+        return authLocalDataSource.getUserInfoOnce()
     }
 }

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ui.AccountActivity
 import com.ui.DetailActivity
 import com.ui.adapter.BookAdapter
 import com.ui.auth.LoginActivity
@@ -78,7 +79,10 @@ class MainActivity : BaseActivity() {
 
         val btn = activityMainBinding.btnClick
         btn.setOnClickListener {
-            bookViewModel.post()
+            //GotoAccountActivity
+            AccountActivity.newIntent(this).also {
+                startActivity(it)
+            }
         }
 
     }

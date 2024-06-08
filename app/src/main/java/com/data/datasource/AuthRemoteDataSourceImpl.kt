@@ -17,9 +17,9 @@ class AuthRemoteDataSourceImpl(private val httpClient: HttpClient) : AuthRemoteD
     // Success -> String -> Access_Token
     // Failed -> Failiure -> Exception -> ViewModel
     // only one
-    override suspend fun login(username: String, password: String): Result<String> {
+    override suspend fun login(username: String, password: String): Result<LoginResponse.User> {
 
-       return handle<LoginResponse> {
+        return handle<LoginResponse> {
             httpClient
                 .post("http://54.179.102.152/api/auth/login") {
                     contentType(ContentType.Application.Json)
@@ -31,7 +31,7 @@ class AuthRemoteDataSourceImpl(private val httpClient: HttpClient) : AuthRemoteD
                     )
                 }
         }.map {
-           it.data!!.accessToken
-       }
+            it.data!!
+        }
     }
 }

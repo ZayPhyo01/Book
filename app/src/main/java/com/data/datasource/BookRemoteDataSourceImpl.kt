@@ -16,7 +16,6 @@ class BookRemoteDataSourceImpl(private val httpClient: HttpClient) : BookRemoteD
     }
 
 
-
 }
 
 // get -> BookResponse -> .handle -> Result<BookResponse> -> success or fail

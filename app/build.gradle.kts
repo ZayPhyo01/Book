@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("org.jetbrains.kotlin.plugin.serialization") version ("1.9.22")
+    kotlin("kapt")
 }
 
 android {
@@ -37,6 +38,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
 }
 
 dependencies {
@@ -66,5 +73,10 @@ dependencies {
     implementation("io.ktor:ktor-client-okhttp:2.3.11")
 
     implementation("com.tencent:mmkv:1.3.5")
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
 
 }

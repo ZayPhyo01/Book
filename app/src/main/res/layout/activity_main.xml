@@ -8,28 +8,29 @@
     tools:context=".MainActivity">
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
         android:id="@+id/btnClick"
-        android:text="click"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:text="User Profile" />
 
     <TextView
+        android:id="@+id/tvResponse"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvResponse"/>
+        android:layout_height="wrap_content" />
 
     <ProgressBar
-        android:layout_width="wrap_content"
         android:id="@+id/pgLoading"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal" />
 
     <com.google.android.material.slider.RangeSlider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         style="@style/TrifectaPlusSliderStyle"
-/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBookList"

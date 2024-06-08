@@ -7,6 +7,7 @@ import com.data.datasource.AuthRemoteDataSourceImpl
 import com.data.datasource.BookRemoteDataSource
 import com.data.datasource.BookRemoteDataSourceImpl
 import com.data.datasource.FakeBookRemoteDataSourceImpl
+import com.data.db.AppDatabase
 import org.koin.dsl.module
 
 val bookRemoteDataSourceImplModule = module {
@@ -24,6 +25,9 @@ val bookRemoteDataSourceImplModule = module {
 
 val bookLocalDataSourceImplModule = module {
     single {
-        AuthLocalDataSourceImpl() as AuthLocalDataSource
+        AuthLocalDataSourceImpl(
+            //UserDao
+            userDao = get()
+        ) as AuthLocalDataSource
     }
 }

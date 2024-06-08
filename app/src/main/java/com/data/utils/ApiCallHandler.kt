@@ -14,47 +14,46 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 suspend inline fun <reified T> handle(
-    crossinline apiCall: () -> HttpResponse
+    crossinline apiCall: suspend () -> HttpResponse
 ): Result<T> {
-    return withContext(Dispatchers.IO) {
-        try {
-            val httpResponse = apiCall()
-            when (httpResponse.status) {
-                //200
-                HttpStatusCode.OK -> {
-                    //Success?
-                    val response: T = httpResponse.body()
-                    if (response != null) {
-                        Result.success(response)
-                    }
-                    //Fail or Success?
-                    Result.failure(
-                        ApiException(
-                            code = httpResponse.status.value,
-                            message = "Something went wrong"
-                        )
-                    )
+    return try {
+        val httpResponse = apiCall()
+        when (httpResponse.status) {
+            //200
+            HttpStatusCode.OK -> {
+                //Success?
+                val response: T = httpResponse.body()
+                if (response != null) {
+                    return Result.success(response)
                 }
 
-                //404
-                HttpStatusCode.NotFound -> Result.failure(
-                    ApiException(
-                        code = httpResponse.status.value,
-                        message = "NEW_USER"
-                    )
-                )
-
-                else -> Result.failure(
+                return Result.failure(
                     ApiException(
                         code = httpResponse.status.value,
                         message = "Something went wrong"
                     )
                 )
-            }
-        } catch (e: Exception) {
-            //Fail or Success?
-            Result.failure(e)
-        }
-    }
+                //Fail or Success?
 
+            }
+
+            //404
+            HttpStatusCode.NotFound -> Result.failure(
+                ApiException(
+                    code = httpResponse.status.value,
+                    message = "NEW_USER"
+                )
+            )
+
+            else -> Result.failure(
+                ApiException(
+                    code = httpResponse.status.value,
+                    message = "Something went wrong"
+                )
+            )
+        }
+    } catch (e: Exception) {
+        //Fail or Success?
+        return Result.failure(e)
+    }
 }
