@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.ui.AccountActivity
 import com.ui.DetailActivity
@@ -18,6 +19,7 @@ import com.ui.book.databinding.ActivityMainBinding
 import com.ui.viewmodel.BookUiEvent
 import com.ui.viewmodel.BookUiState
 import com.ui.viewmodel.BookViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
@@ -93,6 +95,7 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+
     }
 
     //

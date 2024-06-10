@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.data.exceptions.ApiException
 import com.data.repository.AuthRepository
 import com.data.repository.AuthRepositoryImpl
+import com.data.repository.LogRepository
+import com.ui.base.BaseViewModel
 import com.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 
@@ -29,8 +31,9 @@ sealed class LoginViewModelEvent {
 }
 
 class LoginViewModel(
-    private val authRepository: AuthRepository
-) : ViewModel() {
+    private val authRepository: AuthRepository,
+    private val logRepository: LogRepository
+) : BaseViewModel(logRepository) {
 
     // persist ui state
     private val _uiState: MutableLiveData<LoginUiState> = MutableLiveData()
@@ -80,7 +83,6 @@ class LoginViewModel(
 
                     }
                 )
-
 
 
         }

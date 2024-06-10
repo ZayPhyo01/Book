@@ -7,8 +7,13 @@ import com.data.datasource.AuthRemoteDataSourceImpl
 import com.data.datasource.BookRemoteDataSource
 import com.data.datasource.BookRemoteDataSourceImpl
 import com.data.datasource.FakeBookRemoteDataSourceImpl
+import com.data.datasource.LogLocalDataSource
+import com.data.datasource.LogLocalDataSourceImpl
+import com.data.datasource.LogRemoteDataSource
+import com.data.datasource.LogRemoteDataSourceImpl
 import com.data.db.AppDatabase
 import org.koin.dsl.module
+import kotlin.math.sin
 
 val bookRemoteDataSourceImplModule = module {
     single {
@@ -21,6 +26,11 @@ val bookRemoteDataSourceImplModule = module {
             get()
         ) as AuthRemoteDataSource
     }
+    single {
+        LogRemoteDataSourceImpl(
+            get()
+        ) as LogRemoteDataSource
+    }
 }
 
 val bookLocalDataSourceImplModule = module {
@@ -29,5 +39,10 @@ val bookLocalDataSourceImplModule = module {
             //UserDao
             userDao = get()
         ) as AuthLocalDataSource
+    }
+    single {
+        LogLocalDataSourceImpl(
+            logDao = get()
+        ) as LogLocalDataSource
     }
 }

@@ -79,4 +79,8 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
 
+    //Work Manager
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation("io.insert-koin:koin-androidx-workmanager:3.6.0-wasm-alpha2")
+
 }

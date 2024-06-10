@@ -3,6 +3,7 @@ package com.di
 import android.content.Context
 import androidx.room.Room
 import com.data.db.AppDatabase
+import com.data.db.dao.LogDao
 import com.data.db.dao.UserDao
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -12,10 +13,13 @@ val dbModule = module {
     //Provide Database
     single { provideRoomDatabase(context = androidContext()) }
     //Provide Dao ->  provideRoomDatabase(context = androidContext())
-    single { provideUserDao(
-        //??AppDatabase ->
-        appDatabase = get()
-    ) }
+    single {
+        provideUserDao(
+            //??AppDatabase ->
+            appDatabase = get()
+        )
+    }
+    single { provideLogDao(appDatabase = get()) }
 
 }
 
@@ -30,3 +34,4 @@ private fun provideRoomDatabase(context: Context): AppDatabase {
 }
 
 private fun provideUserDao(appDatabase: AppDatabase): UserDao = appDatabase.userDao()
+private fun provideLogDao(appDatabase: AppDatabase): LogDao = appDatabase.logDao()

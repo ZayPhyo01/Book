@@ -9,7 +9,9 @@ import com.data.exceptions.ApiException
 import com.data.repository.AuthRepository
 import com.data.repository.BookRepository
 import com.data.repository.BookRepositoryImpl
+import com.data.repository.LogRepository
 import com.domain.model.BookModel
+import com.ui.base.BaseViewModel
 import com.util.SingleLiveEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,8 +19,9 @@ import kotlinx.coroutines.launch
 //Loading -> Loading , Success -> list display
 class BookViewModel constructor(
     private val bookRepository: BookRepository,
-    private val authRepository: AuthRepository
-) : ViewModel() {
+    private val authRepository: AuthRepository,
+    private val logRepository: LogRepository
+) : BaseViewModel(logRepository) {
 
     private val _bookListLiveData: MutableLiveData<BookUiState> = MutableLiveData()
     val bookListLiveData: LiveData<BookUiState> = _bookListLiveData
@@ -28,6 +31,7 @@ class BookViewModel constructor(
 
     init {
         viewModelScope.launch {
+            setScreenName("HOME")
             fetchBookList()
         }
 
